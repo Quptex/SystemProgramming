@@ -43,7 +43,7 @@ public:
         }
         if (fuel_level - ammount > 0)
         {
-            fuel_level - ammount;
+            fuel_level -= ammount;
         }
         else
         {
@@ -60,7 +60,7 @@ public:
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    Tank tank(-40);
+    Tank tank(70);
     tank.info();
 
 }
