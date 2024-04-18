@@ -67,6 +67,7 @@ class Engine
 {
     const double CONSUMPTION;
     double consumption_per_second;
+    bool isStarted;
 public:
     double getConsuption()const
     {
@@ -76,7 +77,7 @@ public:
     {
         return consumption_per_second;
     }
-    Engine(double consumption) :CONSUMPTION(consumption<MIN_ENGINE_CONSUMPTION ? MIN_ENGINE_CONSUMPTION : consumption > MAX_ENGINE_CONSUMPTION ? MAX_ENGINE_CONSUMPTION : consumption)
+    Engine(double consumption) :CONSUMPTION(consumption<MIN_ENGINE_CONSUMPTION ? MIN_ENGINE_CONSUMPTION : consumption > MAX_ENGINE_CONSUMPTION ? MAX_ENGINE_CONSUMPTION : consumption), isStarted(false)
     {
         consumption_per_second = CONSUMPTION * 3e-5;
     }
@@ -84,19 +85,40 @@ public:
     {
         cout << "Engine is over" << endl;
     }
+    void start()
+    {
+        isStarted == true;
+    }
+    void stop()
+    {
+        isStarted == false;
+    }
+    bool started()const
+    {
+        return isStarted;
+    }
+    void info()const
+    {
+        cout << "Engine consumption: " << CONSUMPTION << " liters\n";
+        cout << "Engine consumption per second: " << consumption_per_second << " liters\n";
+        cout << "Engine is: " << (started() ? "started" : "stopped\n");
+    }
 };
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
     Tank tank(70);
-    int fuel = 0;
+    /*int fuel = 0;
     do
     {
         cout << "¬ведите сколько топлива вы хотите заправить: ";
         cin >> fuel;
     }while (fuel == 0);
     tank.fill(fuel);
-    tank.info();
+    tank.info();*/
+    Engine engine(10);
+    engine.info();
+
 }
 
