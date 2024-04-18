@@ -15,22 +15,10 @@ public:
     {
         return fuel_level;
     }
-    int check(int volume)
-    {
-        if (volume < MIN_TANK_VOLUME)
-        {
-            volume = MIN_TANK_VOLUME;
-        }
-        if (volume > MAX_TANK_VOLUME)
-        {
-            volume = MAX_TANK_VOLUME;
-        }
-        return volume;
-    }
-    Tank(int volume):VOLUME(check(volume))
+    Tank(int volume):VOLUME(volume < MIN_TANK_VOLUME ? MIN_TANK_VOLUME : (volume > MAX_TANK_VOLUME ? MAX_TANK_VOLUME : volume))
     {
         this->fuel_level = 0;
-        cout << "Tank is ready";
+        cout << "Tank is ready\n";
     }
     void fill(double ammount)
     {
@@ -65,8 +53,8 @@ public:
     }
     void info()const
     {
-        cout << "Tank volume: " << VOLUME << "liters";
-        cout << "Fuel level: " << fuel_level << "liters";
+        cout << "Tank volume: " << VOLUME << " liters\n";
+        cout << "Fuel level: " << fuel_level << " liters";
     }
 };
 int main()
