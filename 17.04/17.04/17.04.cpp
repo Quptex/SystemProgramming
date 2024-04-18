@@ -56,12 +56,47 @@ public:
         cout << "Tank volume: " << VOLUME << " liters\n";
         cout << "Fuel level: " << fuel_level << " liters";
     }
+    ~Tank()
+    {
+        cout << "Tank is over" << endl;
+    }
 };
+#define MIN_ENGINE_CONSUMPTION 3
+#define MAX_ENGINE_CONSUMPTION 30
+class Engine
+{
+    const double CONSUMPTION;
+    double consumption_per_second;
+public:
+    double getConsuption()const
+    {
+        return CONSUMPTION;
+    }
+    double getConsumption_per_second()const
+    {
+        return consumption_per_second;
+    }
+    Engine(double consumption) :CONSUMPTION(consumption<MIN_ENGINE_CONSUMPTION ? MIN_ENGINE_CONSUMPTION : consumption > MAX_ENGINE_CONSUMPTION ? MAX_ENGINE_CONSUMPTION : consumption)
+    {
+        consumption_per_second = CONSUMPTION * 3e-5;
+    }
+    ~Engine()
+    {
+        cout << "Engine is over" << endl;
+    }
+};
+
 int main()
 {
     setlocale(LC_ALL, "Russian");
     Tank tank(70);
+    int fuel = 0;
+    do
+    {
+        cout << "¬ведите сколько топлива вы хотите заправить: ";
+        cin >> fuel;
+    }while (fuel == 0);
+    tank.fill(fuel);
     tank.info();
-
 }
 
