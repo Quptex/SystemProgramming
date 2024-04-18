@@ -1,4 +1,5 @@
 #include <iostream>
+#include <conio.h>
 using namespace std;
 #define MIN_TANK_VOLUME 20
 #define MAX_TANK_VOLUME 120
@@ -11,14 +12,14 @@ public:
     {
         return VOLUME;
     }
-    double getfule_level()const
+    double getfuel_level()const
     {
         return fuel_level;
     }
     Tank(int volume):VOLUME(volume < MIN_TANK_VOLUME ? MIN_TANK_VOLUME : (volume > MAX_TANK_VOLUME ? MAX_TANK_VOLUME : volume))
     {
         this->fuel_level = 0;
-        cout << "Tank is ready\n";
+        //cout << "Tank is ready\n";
     }
     void fill(double ammount)
     {
@@ -87,11 +88,11 @@ public:
     }
     void start()
     {
-        isStarted == true;
+        isStarted = true;
     }
     void stop()
     {
-        isStarted == false;
+        isStarted = false;
     }
     bool started()const
     {
@@ -105,10 +106,62 @@ public:
     }
 };
 
+class Car
+{
+    Engine engine;
+    Tank tank;
+    bool driverInside;
+public:
+    Car(int consumption = 10, int volume = 60) :engine(consumption), tank(volume), driverInside(false)
+    {
+        cout << "Car is ready \n";
+    }
+    ~Car()
+    {
+        cout << "Your car is over \n";
+    }
+    void getin()
+    {
+        driverInside = true;
+        panel();
+    }
+    void getout()
+    {
+        driverInside = false;
+    }
+    void control()
+    {
+        char key;
+        do
+        {
+            system("CLS");
+            key = _getch();
+            switch (key)
+            {
+            case 13: driverInside ? getout() : getin();
+                break;
+            }
+        } while (key != 27);
+    }
+    void info()const
+    {
+        engine.info();
+        tank.info();
+    }
+    void panel()const
+    {
+        while (driverInside == true)
+        {
+            cout << "Fuel level: " << tank.getfuel_level() << " liters\n";
+            cout << "Engine is: " << engine.started() << endl;
+        }
+    }
+};
+
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    Tank tank(70);
+    //Tank tank(70);
     /*int fuel = 0;
     do
     {
@@ -117,8 +170,10 @@ int main()
     }while (fuel == 0);
     tank.fill(fuel);
     tank.info();*/
-    Engine engine(10);
-    engine.info();
-
+    //Engine engine(10);
+    //engine.info();
+    Car car;
+    car.info();
+    car.control();
 }
 
